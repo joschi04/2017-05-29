@@ -11,3 +11,5 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule);
+
+// platformServer().bootstrapModule(AppModule);

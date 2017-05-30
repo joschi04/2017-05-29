@@ -2,14 +2,30 @@
 
 <div class="row">
 <div class="card">
-
+<form #f="ngForm">
     <div class="form-group">
         <label>From:</label>
-        <input [(ngModel)]="from" class="form-control">
+        <input 
+            name="from" 
+            [(ngModel)]="from" 
+            class="form-control"
+            required
+            minlength="3"
+            maxlength="30"
+            city="Graz,Hamburg,Nürnberg,Frankfurt,Wien,Zürich"
+            pattern="[A-Za-zöäüßÖÄÜ]*">
+
+        <div *ngIf="f?.controls['from']?.invalid && f?.controls['from']?.dirty">...Fehler <pre>{{ f?.controls['from']?.errors | json }}</pre>...</div>  
+        <div *ngIf="f?.controls['from']?.hasError('required')">...Required...</div>  
+        <div *ngIf="f?.controls['from']?.hasError('minlength')">...minlength...</div>  
+        <div *ngIf="f?.controls['from']?.hasError('maxlength')">...maxlength...</div>  
+        <div *ngIf="f?.controls['from']?.hasError('pattern')">...pattern...</div>  
+        <div *ngIf="f?.controls['from']?.hasError('city')">...city...</div>  
+
     </div>
     <div class="form-group">
         <label>To:</label>
-        <input [(ngModel)]="to" class="form-control">
+        <input name="to" [(ngModel)]="to" class="form-control">
     </div>
 
     <div class="form-group">
@@ -18,7 +34,7 @@
             (click)="search()" 
             [disabled]="!from || !to">Search</button>
     </div>
-
+</form>
 
 </div>
 </div>
