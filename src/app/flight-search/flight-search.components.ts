@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Flight } from "app/entities/flight";
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Flight } from 'app/entities/flight';
 
 //               V----------------V--------- Explizit importiert
-import { Http, URLSearchParams, Headers } from "@angular/http";
-import { FlightService } from "app/flight-search/flight.service";
+import { Http, URLSearchParams, Headers } from '@angular/http';
+import { FlightService } from 'app/flight-search/flight.service'
+import { Subject } from "rxjs/Rx";
 
 @Component({
     selector: 'flight-search',
@@ -29,16 +30,25 @@ export class FlightSearchComponent implements OnInit {
         //this.http = http;
     }
 
+    afterSearch$ = new Subject<Flight[]>();
+
     search(): void {
 
-            this
+        if (!this.from || !this.to) {
+            this.afterSearch$.error('to and from expected!');
+            return;
+        }
+
+        this
             .flightService
             .find(this.from, this.to)
             .subscribe(
                 (flights: Flight[]) => {
                     this.flights = flights;
+                    this.afterSearch$.next(this.flights);
                 },
                 (errResponse) => {
+                    this.afterSearch$.error(errResponse);
                     console.error('Fehler beim Laden', errResponse);
                 }
             );

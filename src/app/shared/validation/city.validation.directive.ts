@@ -7,6 +7,7 @@ import { NG_VALIDATORS, Validator, AbstractControl } from "@angular/forms";
     selector: 'input[city]',
     providers: [
         {
+    
             provide: NG_VALIDATORS,
             useExisting: CityValidationDirective,
             multi: true
