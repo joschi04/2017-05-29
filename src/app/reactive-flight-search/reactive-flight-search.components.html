@@ -7,9 +7,7 @@
     <h2>Dynamic</h2>
     <div class="form-group" *ngFor="let item of formMetadata">
         <label>{{item.label}}</label>
-        <input 
-            [formControlName]="item.name"
-            class="form-control">
+
     </div>
 
     <h2>Static</h2>

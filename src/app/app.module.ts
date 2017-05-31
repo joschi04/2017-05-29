@@ -9,15 +9,19 @@ import { FlightService } from 'app/flight-search/flight.service';
 import { BASE_URL } from 'app/app.tokens';
 import { CityPipe } from 'app/shared/pipes/city.pipe';
 import { FlightSearchModule } from 'app/flight-search/flight-search.module';
+import { HomeComponent } from "app/home/home.component";
+import { AppRouterModule } from "app/app.routes";
 
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpModule,
-    FlightSearchModule
+    FlightSearchModule,
+    AppRouterModule
   ],
   declarations: [
+    HomeComponent,
     AppComponent
   ],
   providers: [
